@@ -1,0 +1,20 @@
+#include <bits/stdc++.h> 
+long long maxSubarraySum(int arr[], int n)
+{
+    long long localmaximum=0,globalmaximum=INT_MIN;
+    for(int i=0;i<n;i++){
+        localmaximum+=arr[i];
+        globalmaximum=max(globalmaximum,localmaximum);
+        if(localmaximum<0){
+            localmaximum=0;
+        }
+    }
+    if(globalmaximum>0) return globalmaximum;
+    return 0;
+    /*
+        Don't write main().
+        Don't read input, it is passed as function argument.    
+        No need to print anything.
+        Taking input and printing output is handled automatically.
+    */
+}
