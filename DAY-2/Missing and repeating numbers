@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+
+pair<int,int> missingAndRepeating(vector<int> &arr, int n)
+{
+	// Write your code here 
+	pair<int,int> result;
+	int xor1;
+    int set_bit_no;
+    int x=0,y=0;
+    
+    for(int i=0;i<n;i++){
+        xor1^=arr[i];
+    }
+    
+    for(int i=1;i<=n;i++){
+        xor1^=i;
+    }
+    
+    set_bit_no= xor1 & ~(xor1-1);
+    
+    for(int i=0;i<n;i++){
+        if(set_bit_no&arr[i]){
+            x=x^arr[i];
+        }
+        else
+            y=y^arr[i];
+    }
+    
+    for(int i=1;i<=n;i++){
+        if(set_bit_no&i){
+            x=x^i;
+        }
+        else
+            y=y^i;
+    }
+    
+    int count=0;
+    for(int i=0;i<n;i++){
+        if(arr[i]==x)
+            count++;
+    }
+    if(count==0)
+        result={x,y};
+    else
+        result={y,x};
+    return result;
+	
+}
