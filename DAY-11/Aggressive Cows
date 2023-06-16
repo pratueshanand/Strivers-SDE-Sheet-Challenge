@@ -1,0 +1,31 @@
+bool canplace(vector<int> stalls, int mid, int k){
+    int cnt=1;
+    int coord=stalls[0];
+    for(int i=1;i<stalls.size();i++){
+        if(stalls[i]-coord>=mid){
+            cnt++;
+            coord=stalls[i];
+        }
+    }
+    if(cnt>=k) return true;
+    else return false;
+}
+int aggressiveCows(vector<int> &stalls, int k)
+{
+    //    Write your code here.
+    sort(stalls.begin(),stalls.end());
+    int n=stalls.size();
+    int l=1;
+    int h=stalls[n-1]-stalls[0];
+
+    while(l<=h){
+        int mid=(l+h)>>1;
+        if(canplace(stalls,mid,k)){
+            l=mid+1;
+        }
+        else{
+            h=mid-1;
+        }
+    }
+    return h;
+}
