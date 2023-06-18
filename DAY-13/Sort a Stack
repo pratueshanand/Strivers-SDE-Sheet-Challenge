@@ -1,0 +1,22 @@
+void sortPush(stack<int> &stack,int num){
+    if(stack.empty() || stack.top()<num){
+        stack.push(num);
+        return;
+    }
+    
+    int num2=stack.top();
+    stack.pop();
+    sortPush(stack,num);
+    stack.push(num2);
+}
+void sortStack(stack<int> &stack)
+{
+	// Write your code here
+    if(stack.empty()){
+        return;
+    }
+    int y=stack.top();
+    stack.pop();
+    sortStack(stack);
+    sortPush(stack,y);
+}
