@@ -1,0 +1,26 @@
+int ispalin(int s, int e, string str){
+        while(s>=0 && e<str.size() && str[s]==str[e]){
+            s--;
+            e++;
+        }
+        return e-s-1;
+    }
+string longestPalinSubstring(string s)
+{
+    // Write your code here.
+        int n=s.size();
+        int maxlen=0;
+        int start=0;
+        string res="";
+        for(int i=0;i<n;i++){
+            int len;
+            int oddlength=ispalin(i,i,s);
+            int evenlength=ispalin(i,i+1,s);
+            len=max(evenlength,oddlength);
+            if(maxlen<len){
+                maxlen=len;
+                start=i-(len-1)/2;
+            }
+        }
+        return s.substr(start,maxlen);
+}
