@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool dfs(int i, vector<int> nums[], vector<int> &vis, vector<int> &pathvisit){
+        vis[i]=1;
+        pathvisit[i]=1;
+        for(auto it : nums[i]){
+            if(!vis[it]){
+                if(dfs(it,nums,vis,pathvisit)) return true;
+            }
+            else if(pathvisit[it]){
+                return true;
+            }
+        }
+        pathvisit[i]=0;
+        return false;
+    }
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        int n=prerequisites.size();
+        if(n==0) return true;
+        vector<int> nums[numCourses];
+        for(int i=0;i<n;i++){
+            int u=prerequisites[i][0];
+            int v=prerequisites[i][1];
+            nums[v].push_back(u);
+        }
+        vector<int> vis(numCourses,0);
+        vector<int> pathvisit(numCourses,0);
+        for(int i=0;i<numCourses;i++){
+            if(!vis[i]){
+                if(dfs(i,nums,vis,pathvisit)) return false;
+            }
+        }
+        return true;
+    }
+};
