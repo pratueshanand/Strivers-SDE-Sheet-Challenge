@@ -1,0 +1,31 @@
+    #include<bits/stdc++.h>
+    bool dfs(int i, int parent, vector<int> nums[], vector<int> &vis){
+        vis[i]=1;
+        for(auto it : nums[i]){
+            if(!vis[it]){
+                if(dfs(it,i,nums,vis)) return true;
+            }
+            else if(parent!=it){
+                return true;
+            }
+        }
+        return false;
+    }
+string cycleDetection (vector<vector<int>>& edges, int n, int m)
+{
+    // Write your code here.
+        vector<int> nums[n+1];
+        for(int i=0;i<m;i++){
+        int u=edges[i][0];
+        int v=edges[i][1];
+        nums[u].push_back(v);
+        nums[v].push_back(u);
+   }
+        vector<int> vis(n+1,0);
+        for(int i=1;i<=n;i++){
+            if(!vis[i]){
+                if(dfs(i,-1,nums,vis)) return "Yes";
+            }
+        }
+        return "No";
+}
